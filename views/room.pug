@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  .messageBox
+    form(method="post" autocomplete="off")
+      .styleInputBox
+        label.ef
+          input(type="hidden" name="room" value=room)
+          input(type="hidden" name="speciality" value="true")
+          input.styleInput(type="text" name="message")
+  .descriptionBox
+    p.roomName <span class="description">ROOM NAME</span> #{room.roomName} 
+    p.peopleInside <span class="description">PEOPLE INSIDE </span>#{room.peopleInside} 人
+    .get_out_form
+      form(method="post")
+        input(type="hidden" name="roomName" value=room.roomName)
+        input.normal_btn(type="submit", value="GET OUT")
+  .chatBox
+    .myMessageBox
+      - for(var i = 0; i < messages.length; i++)
+        form(method="post" name=messages[i].messageId)
+          input(type="hidden" name="message" value=messages[i])
+          .myMessage.chatMessage(name=messages[i].messageId)      
+            p.message #{messages[i].text}
+    .otherMessageBox
+      .otherMessage.chatMessage
+        p.message hogehoge
+

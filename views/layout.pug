@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title= title
+    link(rel="preconnect", href="https://fonts.gstatic.com")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap")
+    link(rel='stylesheet', href='../css/sanitize.css')
+    link(rel='stylesheet', href='../css/style.css')
+    link(rel="stylesheet", href="../css/bubble.css")
+  body
+    div.contents
+      block content    
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.17.0/plugins/CSSPlugin.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.17.0/easing/EasePack.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.17.0/TweenLite.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TimelineLite.min.js")
+    script(defer, src="/js/bundle.js")

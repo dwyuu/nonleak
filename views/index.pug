@@ -1,0 +1,164 @@
+extends index_layout
+
+block content
+  //- -------------------------------------------------------------
+  //- MODAL--------------------------------------------
+  //- -------------------------------------------------------------
+  //- create
+  .create_modal.modal
+    if user
+      form.flex_form(method="post")
+        .styleInputBox
+          label.ef
+            input.styleInput.message(type="text" name="roomName" placeholder="NAME YOUR ROOM" autocomplete="off")   
+        .config
+          .expiration_time
+            p EXPIRAION 
+            select.style_select(name="num")
+              - for (var x = 1; x < 59; x++)
+                option(value=x) #{x}
+            select.style_select(type="time" name="time")
+              option(value="hours") HOURS 
+              option(value="minutes") MINUTES
+              option(value="seconds") SECONDS
+          .capacity
+            p ROOM CAPACITY 
+            select.style_select(name="capacity")
+              - for (var x = 2; x < 10; x++)
+                option(value=x) #{x}
+        .submit
+          //- <a href="" class="btn btn--blue btn--border-double">PUSH！</a>
+          input.config_button(type="submit" value="submit")
+          input.config_button(type="reset" value="reset")
+    else
+      .needToLogin
+        p.non_user_message YOU NEED TO LOGIN TO CREATE A ROOM
+        a.log(href="/auth/google") Google Login
+
+  //- enter
+  .enter_modal.modal
+    form.flex_form(method="post")
+      if user&&rooms.length
+        p CHOOSE ONE OF YOUR ROOMS BELOW or ENTER A ISSUED ROOM KEY
+        .room_choice
+          each room in rooms
+            .room_radio
+              input(type="radio", name="roomName" value=room.roomName)
+              label(for=room.roomId) #{room.roomName}
+        .styleInputBox
+          label.ef
+            input.styleInput.token(type="text" name="roomKey" placeholder="ISSUED ROOM KEY" autocomplete="off") 
+      else
+        .styleInputBox
+          label.ef
+            input.styleInput.token(type="text" name="roomKey" placeholder="ISSUED ROOM KEY" autocomplete="off")
+      .submit
+        input.config_button(type="submit" value="submit")
+        input.config_button(type="reset" value="reset")
+
+  //- encode
+  .encode_modal.modal
+    form.flex_form(method="post")
+      .styleInputBox
+        label.ef
+          input.styleInput(type="text" name="message" placeholder="Message" autocomplete="off")   
+      p Please take note of this following MESSAGE KEY, otherwise you couldn't get this message.
+      .styleInputBox
+        label.ef
+          input.styleInput.messageKey(type="text" name="messageKey" value=messageKey readonly) 
+      input.config_button(type="submit" value="submit")
+  
+  //- decode
+  .decode_modal.modal
+    form.flex_form(method="post")
+      .styleInputBox
+        label.ef
+          input.styleInput.token(type="text" name="messageKey" placeholder="MESSAGE KEY" autocomplete="off")  
+      input.config_button(type="submit" value="submit")
+  
+  //- LOGIN
+  .login_anchor
+    if user
+      p.user user #{user} 
+      .user_modal
+        p your issued tokens
+          if rooms.length
+            each room in rooms
+              p #{room.roomKey}
+          else
+            p YOU HAVEN'T ISSUED ANY
+        .button_logout
+          a.logout(href="/logout") LOGOUT 
+    else
+      a.log(href="/auth/google") Google Login
+
+  //- SECRET MESSAGE
+  if secret_message
+    .secret_message_modal
+      p your secret message is following
+      p.secret_message #{secret_message}
+    .secret_message_overlay
+
+  //- OVERLAY
+  .overlay 
+
+  //- -------------------------------------------------------------
+  //- APP----------------------------------------------------------
+  //- -------------------------------------------------------------
+  .app
+    .title
+      p NoNLeak
+    .options
+      svg.goo(xmlns="http://www.w3.org/2000/svg" version="1.1")
+        defs
+          filter#goo
+            fegaussianblur(in="SourceGraphic" stddeviation="10" result="blur")
+            fecolormatrix(in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo")
+            fecomposite(in="SourceGraphic" in2="goo")
+      .room_control
+        span.button--bubble__container
+          a.button.button--bubble.create
+            | create
+          span.button--bubble__effect-container
+            span.circle.top-left
+            span.circle.top-left
+            span.circle.top-left
+            span.button.effect-button
+            span.circle.bottom-right
+            span.circle.bottom-right
+            span.circle.bottom-right
+        span.button--bubble__container
+          a.button.button--bubble.enter
+            | enter
+          span.button--bubble__effect-container
+            span.circle.top-left
+            span.circle.top-left
+            span.circle.top-left
+            span.button.effect-button
+            span.circle.bottom-right
+            span.circle.bottom-right
+            span.circle.bottom-right
+      .confidential_message
+        span.button--bubble__container
+          a.button.button--bubble.encode
+            | encode
+          span.button--bubble__effect-container
+            span.circle.top-left
+            span.circle.top-left
+            span.circle.top-left
+            span.button.effect-button
+            span.circle.bottom-right
+            span.circle.bottom-right
+            span.circle.bottom-right        
+        span.button--bubble__container
+          a.button.button--bubble.decode
+            | decode
+          span.button--bubble__effect-container
+            span.circle.top-left
+            span.circle.top-left
+            span.circle.top-left
+            span.button.effect-button
+            span.circle.bottom-right
+            span.circle.bottom-right
+            span.circle.bottom-right           
+

@@ -1,0 +1,211 @@
+html {
+  font-family: 'Yusei Magic', sans-serif; }
+
+.contents {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #d7edfead; }
+
+.login_anchor {
+  display: inline-block;
+  float: right;
+  background-color: white;
+  z-index: 9999;
+  position: relative; }
+  .login_anchor .user {
+    cursor: pointer;
+    margin: 1em;
+    text-align: center; }
+  .login_anchor .user_modal {
+    display: none;
+    position: relative;
+    background-color: #fff;
+    padding: 2rem;
+    flex-direction: column; }
+  .login_anchor .log {
+    padding: 1em;
+    display: inline-block; }
+
+.overlay, .secret_message_overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  background-color: #222222;
+  z-index: 9000;
+  top: 0; }
+
+.secret_message_overlay {
+  display: block;
+  z-index: 10000; }
+
+.modal, .secret_message_modal {
+  position: fixed;
+  top: 20%;
+  bottom: 20%;
+  left: 10%;
+  right: 10%;
+  display: none;
+  background-color: #fff;
+  z-index: 9999;
+  border-radius: 2rem;
+  padding: 2rem 2rem 0 2rem; }
+  .modal .needToLogin, .secret_message_modal .needToLogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%; }
+
+.secret_message_modal {
+  display: block;
+  z-index: 10001; }
+
+.flex_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: space-around; }
+  .flex_form .config {
+    display: flex; }
+    .flex_form .config div {
+      padding: 1rem; }
+  .flex_form .submit {
+    padding: 1rem; }
+  .flex_form .config_button {
+    margin: 1rem;
+    padding: 10px;
+    font-size: 15px;
+    border: 8px double #0090bb;
+    background-color: azure;
+    font-family: 'Yusei Magic', sans-serif; }
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10%;
+  bottom: 10%; }
+  .app .title {
+    font-size: 5em; }
+  .app .options {
+    display: flex;
+    height: 100%;
+    animation: hue-rotate 10s linear infinite; }
+
+.messageBox {
+  position: fixed;
+  top: 80%;
+  bottom: 0;
+  left: 10%;
+  right: 10%; }
+
+.descriptionBox {
+  position: fixed;
+  top: 0;
+  bottom: 20%;
+  left: 0;
+  right: 80%; }
+
+.chatBox {
+  position: fixed;
+  top: 0;
+  bottom: 20%;
+  left: 20%;
+  right: 0; }
+  .chatBox .myMessageBox {
+    position: fixed;
+    top: 0;
+    bottom: 20%;
+    left: 20%;
+    right: 40%; }
+  .chatBox .otherMessageBox {
+    position: fixed;
+    top: 0;
+    bottom: 20%;
+    left: 60%;
+    right: 0; }
+  .chatBox .chatMessage {
+    background: rgba(255, 255, 255, 0.6);
+    border: thin solid rgba(255, 255, 225, 0.3);
+    border-radius: 50%;
+    box-shadow: 0 0 1px 1px rgba(255, 255, 225, 0.2);
+    margin: 1rem;
+    padding: 0.5rem; }
+    .chatBox .chatMessage .message {
+      text-align: center; }
+  .chatBox .chatMessage::after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 3px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.2); }
+
+.styleInputBox {
+  margin: 1rem 3%; }
+
+.styleInputBox .styleInput {
+  font: 15px/24px sans-serif;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.3em;
+  transition: 0.3s;
+  letter-spacing: 1px;
+  color: #aaaaaa;
+  border: 1px solid #1b2538;
+  border-radius: 4px; }
+
+.ef .styleInput:focus {
+  border: 1px solid #da3c41;
+  outline: none;
+  box-shadow: 0 0 5px 1px rgba(218, 60, 65, 0.5); }
+
+.style_select {
+  position: relative;
+  float: left;
+  display: block;
+  height: 50px;
+  margin: 5px 0px;
+  padding: 0px 24px;
+  line-height: 1.75;
+  border: 1px solid #cccccc;
+  -ms-word-break: normal;
+  word-break: normal; }
+
+select::-ms-expand {
+  display: none; }
+
+.style_select:after {
+  content: '<>';
+  font: 17px "Consolas", monospace;
+  color: #333;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  right: 11px;
+  top: 18px;
+  padding: 0 0 2px;
+  border-bottom: 1px solid #999;
+  position: absolute;
+  pointer-events: none; }
+
+.normal_btn {
+  margin: 1rem;
+  padding: 10px;
+  font-size: 15px;
+  border: 8px double #0090bb;
+  background-color: azure;
+  font-family: 'Yusei Magic', sans-serif; }
+
+/*# sourceMappingURL=style.css.map */
