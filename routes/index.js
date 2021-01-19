@@ -25,11 +25,30 @@ router.get('/', function(req, res, next) {
 		} 
 		if (req.user) {
 			data.user = req.user.displayName;
-			Room.findAll({where: {createdBy: req.user.id}
-			}).then(rooms => {
+			Room.findAll({where: {createdBy: req.user.id}})
+			.then(rooms => {
 			  data.rooms = rooms;
 			  res.render('index', data);
-			});
+			})
+			.catch(() => {
+			  res.render('index', data);
+			})
+		 } else {
+			res.render('index', data);
+		}
+	})
+	.catch(() => {
+		let data = {title: title, messageKey: messageKey};
+		if (req.user) {
+			data.user = req.user.displayName;
+			Room.findAll({where: {createdBy: req.user.id}})
+			.then(rooms => {
+			  data.rooms = rooms;
+			  res.render('index', data);
+			})
+			.catch(() => {
+			  res.render('index', data);
+			})
 		 } else {
 			res.render('index', data);
 		}
