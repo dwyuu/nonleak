@@ -10823,15 +10823,16 @@ return jQuery;
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// import $ from 'jquery';
-// const loadavg = $('#loadavg');
-// setInterval(() => {
-//   $.get('/room/retreiveData', {}, (data) => {
-//     loadavg.text(data.loadavg.toString());
-//   });
-// }, 2000);
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+setInterval(function () {
+  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.get('/message', {}, function (messages) {});
+}, 2000);
 
 /***/ })
 /******/ ]);

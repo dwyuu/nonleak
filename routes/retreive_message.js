@@ -1,0 +1,24 @@
+'use strict';
+const express = require('express');
+const router = express.Router();
+
+router.get('/', (req, res, next) => {
+    Message.findAll({
+        where: {
+            roomId: req.url.split("/")[1]
+        }
+    })
+    .then((messages) =>{
+        console.log(messages)
+        res.json({messages: messages})
+    })
+    .catch(() => {
+        console.log("-----------------------------------")
+        console.log("Message.findAll エラーーー！！！")
+        console.log("-----------------------------------------")
+        res.redirect('/')
+    })
+
+});
+
+module.exports = router;

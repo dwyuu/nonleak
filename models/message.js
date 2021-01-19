@@ -28,7 +28,11 @@ const Message = loader.database.define(
 		      sentBy: {
 			            type: Sequelize.STRING,
 			            allowNull: false
-			          }
+					  },
+			  createdAt: {
+				type: Sequelize.DATE,
+				allowNull: false				  
+			  }
 		    },
 	  {
 		      freezeTableName: true,

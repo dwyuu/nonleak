@@ -59,7 +59,8 @@ router.post('/:roomId', (req, res) => {
 		  text: req.body.message,
 		  speciality: Boolean(req.body.speciality),
 		  roomId: room.roomId,
-		  sentBy: room.createdBy
+      sentBy: room.createdBy,
+      createdAt: new Date()
     })
     .then(() =>{
 			let path = `${room.roomId}`
