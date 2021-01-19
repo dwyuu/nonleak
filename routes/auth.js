@@ -24,9 +24,6 @@ passport.use(new GoogleStrategy({
     console.log("-----------------------------------")
     console.log(profile)
     console.log("-----------------------------------------")
-    console.log("-----------------------------------")
-    console.log(User)
-    console.log("-----------------------------------------")
     if (profile) {
         User.upsert({
             userId: profile.id,
