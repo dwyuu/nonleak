@@ -22,12 +22,14 @@ passport.use(new GoogleStrategy({
         callbackURL: "/auth/google/callback "
 }, function (accessToken, refreshToken, profile, done) {
     if (profile) {
-	User.upsert({
-		userId: profile.id,
-		username: profile.displayName
-	}).then(() => {
-		return 	done(null, profile);
-	});
+        User.upsert({
+            userId: profile.id,
+            username: profile.displayName
+        }).then(() => {
+            return 	done(null, profile);
+        }).catch(() => {
+            return done(null, profile);
+        })
     }else {
         return done(null, false);
     }
