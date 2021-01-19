@@ -21,6 +21,12 @@ passport.use(new GoogleStrategy({
         clientSecret: "sez0TEOPP_SK171JhsI9oChA",
         callbackURL: "/auth/google/callback "
 }, function (accessToken, refreshToken, profile, done) {
+    console.log("-----------------------------------")
+    console.log(profile)
+    console.log("-----------------------------------------")
+    console.log("-----------------------------------")
+    console.log(User)
+    console.log("-----------------------------------------")
     if (profile) {
         User.upsert({
             userId: profile.id,
