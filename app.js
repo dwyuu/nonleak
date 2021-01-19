@@ -11,13 +11,25 @@ let Room = require('./models/room');
 let Message = require('./models/message');
 let SecretMessage = require('./models/secret_message')
 
-User.sync().then(() => { 
+User.sync()
+.then(() => { 
 	  Room.belongsTo(User, {foreignKey: 'createdBy'});
-	  Room.sync().then(() => {  
+    Room.sync()
+    .then(() => {  
 	  	Message.belongsTo(Room, {foreignKey: 'roomId'});
 	  	Message.sync();
-	  })
-});
+    })
+    .catch(() => {
+      console.log("-----------------------------------")
+      console.log("Room.sync エラーーー！！")
+      console.log("-----------------------------------------")
+    })
+})
+.catch(() => {
+  console.log("-----------------------------------")
+  console.log("User.sync エラーーー！！！！")
+  console.log("-----------------------------------------")
+})
 SecretMessage.sync()
 
 let session = require('express-session');

@@ -26,16 +26,30 @@ router.get('/:roomId', (req, res, next) => {
     where: {
       roomId: req.url.split("/")[1]
     }
-  }).then((room) => {
+  })
+  .then((room) => {
     Message.findAll({
       where: {
         roomId: req.url.split("/")[1]
       }
-    }).then((messages) =>{
+    })
+    .then((messages) =>{
       console.log(messages)
       res.render('room', {room: room, messages: messages})
-    });
-  });
+    })
+    .catch(() => {
+      console.log("-----------------------------------")
+      console.log("Message.findAll エラーーー！！！")
+      console.log("-----------------------------------------")
+      res.redirect('/')
+    })
+  })
+  .catch(() => {
+    console.log("-----------------------------------")
+    console.log("Room.findOne エラーーー！！！")
+    console.log("-----------------------------------------")
+    res.redirect('/')
+  })
 });
 
 router.post('/:roomId', (req, res) => {
@@ -46,16 +60,29 @@ router.post('/:roomId', (req, res) => {
 		  speciality: Boolean(req.body.speciality),
 		  roomId: room.roomId,
 		  sentBy: room.createdBy
-		}).then(() =>{
+    })
+    .then(() =>{
 			let path = `${room.roomId}`
 			res.redirect(path);
-		})
+    })
+    .catch(() => {
+      console.log("-----------------------------------")
+      console.log("Message.create エラーーー！！！")
+      console.log("-----------------------------------------")
+      res.redirect('/')
+    })
   }
   else if (req.body.roomName) {
     Room.findOne({where:{roomName: req.body.roomName}})
     .then((room) =>{
       let peopleInside = room.peopleInside - 1
       room.update({peopleInside: peopleInside})
+      res.redirect('/')
+    })
+    .catch(() => {
+      console.log("-----------------------------------")
+      console.log("Room.findOne エラーーー！！！")
+      console.log("-----------------------------------------")
       res.redirect('/')
     })
   }
@@ -66,6 +93,12 @@ router.post('/:roomId', (req, res) => {
       message.destroy();
       let path = `${message.roomId}`
 			res.redirect(path);
+    })
+    .catch(() => {
+      console.log("-----------------------------------")
+      console.log("Message.findOne エラーーー！！！")
+      console.log("-----------------------------------------")
+      res.redirect('/')
     })
   }
 })

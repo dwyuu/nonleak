@@ -79,15 +79,23 @@ router.post('/', (req, res) => {
 		  expiration: expiration,
 		  capacity: parseInt(req.body.capacity),
 		  peopleInside: 0
-		}).then(() =>{
+		})
+		.then(() =>{
 			res.redirect('/');
+		})
+		.catch(() => {
+			console.log("-----------------------------------")
+			console.log("Room.create エラーーー！！！")
+			console.log("-----------------------------------------")
+			res.redirect('/')
 		})
 	}else if(req.body.roomName || req.body.roomKey){
 		let where;
 		if (req.body.roomName) where = {roomName: req.body.roomName}
 		else where = {roomKey: req.body.roomKey}
 		Room.findOne({where: where
-		}).then(room => {
+		})
+		.then(room => {
 			// console.log("--------------------------------------")
 			// console.log(room)
 			// console.log('-------------------------------------------------')
@@ -105,21 +113,40 @@ router.post('/', (req, res) => {
 				let path = `room/${room.roomId}`
 				res.redirect(path);
 			}
-		});
+		})
+		.catch(() => {
+			console.log("-----------------------------------")
+			console.log("Room.findOne エラーーー！！！！")
+			console.log("-----------------------------------------")
+			res.redirect('/')
+		})
 	}else if(req.body.message && req.body.messageKey){
 		SecretMessage.create({
 			text: req.body.message,
 			messageKey: req.body.messageKey,
 			show: false
-		  }).then(() =>{
-			  res.redirect('/');
+		  })
+		.then(() =>{
+			res.redirect('/');
+		})
+		.catch(() => {
+			console.log("-----------------------------------")
+			console.log("SecretMessage.create エラーーー！！！！")
+			console.log("-----------------------------------------")
+			res.redirect('/')
 		})
 	}else if(req.body.messageKey){
 		SecretMessage.findOne({where: {messageKey : req.body.messageKey}})
 		.then(secret_message => {
 			secret_message.update({show: true})
 			.then(() => res.redirect('/'))		
-		});
+		})
+		.catch(() => {
+			console.log("-----------------------------------")
+			console.log("SecretMessage.findOne エラーーー！！！！")
+			console.log("-----------------------------------------")
+			res.redirect('/')
+		})
 	}else{
 		console.log("something went wrong")
 	}
