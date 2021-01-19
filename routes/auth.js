@@ -28,6 +28,7 @@ passport.use(new GoogleStrategy({
         }).then(() => {
             return 	done(null, profile);
         }).catch(() => {
+            console.log("プロフィールエラーー！！！！！")
             return done(null, profile);
         })
     }else {
