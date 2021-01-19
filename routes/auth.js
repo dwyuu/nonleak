@@ -19,8 +19,7 @@ function extractProfile(profile) {
 passport.use(new GoogleStrategy({
         clientID: "756664460961-a0n0c9h1nt93ui8njpovgdeu58blpo34.apps.googleusercontent.com",
         clientSecret: "sez0TEOPP_SK171JhsI9oChA",
-        callbackURL: "/auth/google/callback ",
-	accessType: 'offline'
+        callbackURL: "/auth/google/callback "
 }, function (accessToken, refreshToken, profile, done) {
     if (profile) {
 	User.upsert({
