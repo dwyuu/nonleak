@@ -3,6 +3,10 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
+    console.log("-----------------------")
+    console.log(req.url.split("/")[1])
+    console.log(req.url)
+    console.log("-----------------------")
     Message.findAll({
         where: {
             roomId: req.url.split("/")[1]
