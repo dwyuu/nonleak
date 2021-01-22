@@ -34,12 +34,12 @@ router.get('/:roomId', (req, res, next) => {
       }
     })
     .then((messages) =>{
-      console.log(messages)
       res.render('room', {room: room, messages: messages})
     })
-    .catch(() => {
+    .catch((e) => {
       console.log("-----------------------------------")
       console.log("Message.findAll エラーーー！！！")
+      console.log(e)
       console.log("-----------------------------------------")
       res.redirect('/')
     })
@@ -54,24 +54,25 @@ router.get('/:roomId', (req, res, next) => {
 
 router.post('/:roomId', (req, res) => {
   if (req.body.room) {
-    let room = JSON.parse(req.body.room);
-    Message.create({
-		  text: req.body.message,
-		  speciality: Boolean(req.body.speciality),
-		  roomId: room.roomId,
-      sentBy: room.createdBy,
-      createdAt: new Date()
-    })
-    .then(() =>{
-			let path = `${room.roomId}`
-			res.redirect(path);
-    })
-    .catch(() => {
-      console.log("-----------------------------------")
-      console.log("Message.create エラーーー！！！")
-      console.log("-----------------------------------------")
-      res.redirect('/')
-    })
+    // let room = JSON.parse(req.body.room);
+    // console.log(room)
+    // Message.create({
+		//   text: req.body.message,
+		//   speciality: Boolean(req.body.speciality),
+		//   roomId: room.roomId,
+    //   sentBy: room.createdBy,
+    //   createdAt: new Date()
+    // })
+    // .then(() =>{
+		// 	let path = `${room.roomId}`
+		// 	res.redirect(path);
+    // })
+    // .catch(() => {
+    //   console.log("-----------------------------------")
+    //   console.log("Message.create エラーーー！！！")
+    //   console.log("-----------------------------------------")
+    //   res.redirect('/')
+    // })
   }
   else if (req.body.roomName) {
     Room.findOne({where:{roomName: req.body.roomName}})

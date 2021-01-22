@@ -10829,10 +10829,59 @@ return jQuery;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+ // message submission
 
-setInterval(function () {
-  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.get('/message', {}, function (messages) {});
-}, 2000);
+jquery__WEBPACK_IMPORTED_MODULE_0___default()('#messageSubmissionForm').submit(function (e) {
+  e.preventDefault();
+  var $form = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this);
+  var data = JSON.parse(jquery__WEBPACK_IMPORTED_MODULE_0___default()("#hidden_data").val());
+  data.speciality = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#speciality").val();
+  data.message = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#message").val();
+  var $s = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.styleInput');
+  $s.attr('disabled', true);
+  console.log(data);
+  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.getJSON('/message', {
+    data: data
+  }, function (message) {
+    console.log(message);
+    var messageFormHtml = "<input type=\"hidden\" name=\"message\" value=".concat(message, ">\n            <div class=\"myMessage chatMessage\" name=").concat(message.messageId, ">\n                <p class=\"message\">").concat(message.text, "</p>\n            </div>");
+    var $f = jquery__WEBPACK_IMPORTED_MODULE_0___default()("<form method='post' name=${message.messageId}>");
+    console.log($f);
+    $f.html(messageFormHtml);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(".myMessageBox").append($f);
+    $form[0].reset();
+    $s.attr('disabled', false); // let friendsMessageTemplate = `<form method="post" name="1">
+    //     <input type="hidden" name="message">
+    //     <div class="myMessage chatMessage" name="1">
+    //         <p class="message">hoge</p>
+    //     </div>
+    // </form>`
+  });
+}); // synchronization of messages
+// let getMessage;
+// $(window).on("load", ()=> {
+//     if(location.pathname.split('/')[1] === "room"){
+//         getMessage = setInterval(() => {
+//             $.getJSON('/message', {}, messages => {
+//                 console.log(messages)
+//                 let MessageTemplate = `<form method="post" name="1">
+//                     <input type="hidden" name="message">
+//                     <div class="myMessage chatMessage" name="1">
+//                         <p class="message">hoge</p>
+//                     </div>
+//                 </form>`
+//                 let friendsMessageTemplate = `<form method="post" name="1">
+//                     <input type="hidden" name="message">
+//                     <div class="myMessage chatMessage" name="1">
+//                         <p class="message">hoge</p>
+//                     </div>
+//                 </form>`
+//             });
+//         }, 2000);
+//     }else{
+//         clearInterval(getMessage)
+//     }
+// })
 
 /***/ })
 /******/ ]);

@@ -2,12 +2,12 @@ extends layout
 
 block content
   .messageBox
-    form(method="post" autocomplete="off")
+    form(method="post" autocomplete="off" id="messageSubmissionForm")
       .styleInputBox
         label.ef
-          input(type="hidden" name="room" value=room)
-          input(type="hidden" name="speciality" value="true")
-          input.styleInput(type="text" name="message")
+          input(type="hidden" name="room" value=room id="hidden_data")
+          input(type="hidden" name="speciality" value="true" id="speciality")
+          input.styleInput(type="text" name="message" id="message")
   .descriptionBox
     p.roomName <span class="description">ROOM NAME</span> #{room.roomName} 
     p.peopleInside <span class="description">PEOPLE INSIDE </span>#{room.peopleInside} 人

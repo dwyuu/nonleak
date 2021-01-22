@@ -96,9 +96,6 @@ router.post('/', (req, res) => {
 		Room.findOne({where: where
 		})
 		.then(room => {
-			// console.log("--------------------------------------")
-			// console.log(room)
-			// console.log('-------------------------------------------------')
 			if (room.capacity === room.peopleInside) {
 				//リダイレクトの際に入れなかったアラートを出す処理を入れる
 				console.log(room.capacity)
