@@ -8,9 +8,8 @@ const Message = loader.database.define(
 	  'messages',
 	  {
 		      messageId : {
-			            type: Sequelize.INTEGER,
+			            type: Sequelize.STRING,
 			            primaryKey: true,
-			            autoIncrement: true,
 			            allowNull: false
 			          },
 		      text: {

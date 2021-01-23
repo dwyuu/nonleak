@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const Message = require('../models/message');
+const nanoid = require("nanoid");
 
 router.get('/', (req, res, next) => {
     // format url formed datas
@@ -12,16 +13,15 @@ router.get('/', (req, res, next) => {
         d = d.slice(1, d.length-1);
         data[d] = url_datas[i].split("=")[1];
     }
-    let url = req.headers.referer
-    let u = url.split("/")
-    let roomId = u[u.length -1]
-
-    //create message
+    
+    // create message
+    let messageId = nanoid.nanoid(7);
     Message.create({
+        messageId: messageId,
         text: data.message,
         speciality: Boolean(data.speciality),
         roomId: data.roomId,
-        sentBy: data.createdBy,
+        sentBy: data.self,
         createdAt: new Date()
     })
     .then((message) =>{
@@ -33,20 +33,6 @@ router.get('/', (req, res, next) => {
       console.log("-----------------------------------------")
       res.redirect('/')
     })
-    // Message.findAll({
-    //     where: {
-    //         roomId: roomId
-    //     }
-    // })
-    // .then((messages) =>{
-    //     res.json({messages: messages})
-    // })
-    // .catch(() => {
-    //     console.log("-----------------------------------")
-    //     console.log("Message.findAll エラーーー！！！")
-    //     console.log("-----------------------------------------")
-    //     res.redirect('/')
-    // })
 });
 
 module.exports = router;

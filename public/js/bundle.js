@@ -210,12 +210,6 @@ $ov.on("click", function () {
 }); //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 
-jquery__WEBPACK_IMPORTED_MODULE_0___default()(".myMessage").on("click", function () {
-  console.log(jquery__WEBPACK_IMPORTED_MODULE_0___default()(".myMessage").parent().prop("name"));
-  var formName = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".myMessage").parent().prop("name");
-  document[formName].submit();
-});
-
 /***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -10829,59 +10823,87 @@ return jQuery;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
- // message submission
+ // synchronization of messages
+
+var synchroInterval;
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on("load", function () {
+  if (location.pathname.split('/')[1] === "room") synchro();else clearInterval(synchroInterval);
+});
+
+var synchro = function synchro() {
+  synchroInterval = setInterval(function () {
+    var data = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".chatMessage").get().map(function (m) {
+      return m.getAttribute("name");
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.getJSON('/synchronizeMessage', {
+      data: data
+    }, view_synchronization);
+  }, 5000);
+};
+
+var view_synchronization = function view_synchronization(data) {
+  var m = data.Messages;
+  console.log(m);
+  if (m === []) return;
+
+  for (var i = 0; i < m.length; i++) {
+    if (typeof m[i] == "string") {
+      console.log("old");
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()("form[name=".concat(m[i], "]")).remove();
+    } else if (Object.prototype.toString.call(m[i]) === "[object Object]") {
+      // check who has sent this message
+      m[i].class = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".descriptionBox").attr("self") === m[i].sentBy ? "myMessage" : "otherMessage"; // add html 
+
+      var $f = jquery__WEBPACK_IMPORTED_MODULE_0___default()("<form method='post' name=".concat(m[i].messageId, ">"));
+      $f.html(messageFormHtml(m[i]));
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(".".concat(m[i].class, "Box")).append($f);
+    } else {
+      console.log("something went wrong");
+    }
+  }
+}; // ----message submission-----------
+// html template
+
+
+var messageFormHtml = function messageFormHtml(message) {
+  return "<div class=\"".concat(message.class, " chatMessage\" name=").concat(message.messageId, ">\n    <p class=\"message\">").concat(message.text, "</p>\n</div>");
+};
 
 jquery__WEBPACK_IMPORTED_MODULE_0___default()('#messageSubmissionForm').submit(function (e) {
+  var _this = this;
+
   e.preventDefault();
-  var $form = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this);
+  clearInterval(synchroInterval);
   var data = JSON.parse(jquery__WEBPACK_IMPORTED_MODULE_0___default()("#hidden_data").val());
   data.speciality = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#speciality").val();
   data.message = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#message").val();
+  data.self = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".descriptionBox").attr("self");
   var $s = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.styleInput');
   $s.attr('disabled', true);
-  console.log(data);
-  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.getJSON('/message', {
+  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.getJSON('/createMessage', {
     data: data
   }, function (message) {
-    console.log(message);
-    var messageFormHtml = "<input type=\"hidden\" name=\"message\" value=".concat(message, ">\n            <div class=\"myMessage chatMessage\" name=").concat(message.messageId, ">\n                <p class=\"message\">").concat(message.text, "</p>\n            </div>");
-    var $f = jquery__WEBPACK_IMPORTED_MODULE_0___default()("<form method='post' name=${message.messageId}>");
-    console.log($f);
-    $f.html(messageFormHtml);
+    var $f = jquery__WEBPACK_IMPORTED_MODULE_0___default()("<form method='post' name=".concat(message.messageId, ">"));
+    message.class = "myMessage";
+    $f.html(messageFormHtml(message));
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(".myMessageBox").append($f);
-    $form[0].reset();
-    $s.attr('disabled', false); // let friendsMessageTemplate = `<form method="post" name="1">
-    //     <input type="hidden" name="message">
-    //     <div class="myMessage chatMessage" name="1">
-    //         <p class="message">hoge</p>
-    //     </div>
-    // </form>`
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(_this)[0].reset();
+    $s.attr('disabled', false);
+    $s.focus();
+    synchro();
   });
-}); // synchronization of messages
-// let getMessage;
-// $(window).on("load", ()=> {
-//     if(location.pathname.split('/')[1] === "room"){
-//         getMessage = setInterval(() => {
-//             $.getJSON('/message', {}, messages => {
-//                 console.log(messages)
-//                 let MessageTemplate = `<form method="post" name="1">
-//                     <input type="hidden" name="message">
-//                     <div class="myMessage chatMessage" name="1">
-//                         <p class="message">hoge</p>
-//                     </div>
-//                 </form>`
-//                 let friendsMessageTemplate = `<form method="post" name="1">
-//                     <input type="hidden" name="message">
-//                     <div class="myMessage chatMessage" name="1">
-//                         <p class="message">hoge</p>
-//                     </div>
-//                 </form>`
-//             });
-//         }, 2000);
-//     }else{
-//         clearInterval(getMessage)
-//     }
-// })
+}); //message deletion
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(".chatBox").on("click", ".chatMessage", function () {
+  clearInterval(synchroInterval);
+  var id = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr("name");
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()("form[name=".concat(id, "]")).remove();
+  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.getJSON('/deleteMessage', {
+    data: id
+  }, function () {
+    return synchro();
+  });
+});
 
 /***/ })
 /******/ ]);

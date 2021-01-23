@@ -14,11 +14,10 @@ const nanoid = require("nanoid");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	const title = 'NoNLeak';
-	const messageKey = nanoid.nanoid(7)
+	const messageKey = nanoid.nanoid(7);
 	SecretMessage.findOne({where: {show: true}})
 	.then((secret_message) => {
-		let data = {title: title, messageKey: messageKey};
+		let data = {messageKey: messageKey};
 		if (secret_message){
 			data.secret_message = secret_message.text;
 			secret_message.update({show: false});
@@ -38,7 +37,7 @@ router.get('/', function(req, res, next) {
 		}
 	})
 	.catch(() => {
-		let data = {title: title, messageKey: messageKey};
+		let data = {messageKey: messageKey};
 		if (req.user) {
 			data.user = req.user.displayName;
 			Room.findAll({where: {createdBy: req.user.id}})

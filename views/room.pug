@@ -8,7 +8,7 @@ block content
           input(type="hidden" name="room" value=room id="hidden_data")
           input(type="hidden" name="speciality" value="true" id="speciality")
           input.styleInput(type="text" name="message" id="message")
-  .descriptionBox
+  .descriptionBox(id=room.createdBy self=room.self)
     p.roomName <span class="description">ROOM NAME</span> #{room.roomName} 
     p.peopleInside <span class="description">PEOPLE INSIDE </span>#{room.peopleInside} 人
     .get_out_form
@@ -16,13 +16,16 @@ block content
         input(type="hidden" name="roomName" value=room.roomName)
         input.normal_btn(type="submit", value="GET OUT")
   .chatBox
-    .myMessageBox
-      - for(var i = 0; i < messages.length; i++)
+    .myMessageBox.messageBox
+      - for(var i = 0; i < messages.filter(m => m.sentBy === room.self).length; i++)
         form(method="post" name=messages[i].messageId)
           input(type="hidden" name="message" value=messages[i])
           .myMessage.chatMessage(name=messages[i].messageId)      
             p.message #{messages[i].text}
-    .otherMessageBox
-      .otherMessage.chatMessage
-        p.message hogehoge
+    .otherMessageBox.messageBox
+      - for(var i = 0; i < messages.filter(m => m.sentBy !== room.self).length; i++)
+        form(method="post" name=messages[i].messageId)
+          input(type="hidden" name="message" value=messages[i])
+          .myMessage.chatMessage(name=messages[i].messageId)      
+            p.message #{messages[i].text}
 
