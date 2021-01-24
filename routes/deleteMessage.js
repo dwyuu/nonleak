@@ -11,13 +11,14 @@ router.get('/', (req, res, next) => {
         console.log("this message is about to delete")
         console.log(message)
         message.destroy();
-        res.json({})
+        res.json({message: "deletion success"})
     })
-    .catch(() => {
+    .catch((e) => {
       console.log("-----------------------------------")
       console.log("Message.findOne エラーーー！！！")
+      console.log(e)
       console.log("-----------------------------------------")
-      res.redirect('/')
+      res.json({message: "deletion failed"})
     })
 });
 

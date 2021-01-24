@@ -29,14 +29,19 @@ router.get('/', function(req, res, next) {
 			  data.rooms = rooms;
 			  res.render('index', data);
 			})
-			.catch(() => {
-			  res.render('index', data);
+			.catch((e) => {
+				console.log("-----------------------------------")
+				console.log("Message.findAll エラーーー！！！")
+				console.log(e)
+				console.log("-----------------------------------------")
+			  	res.render('index', data);
 			})
 		 } else {
 			res.render('index', data);
 		}
 	})
 	.catch(() => {
+		console.log("no secret message to show")
 		let data = {messageKey: messageKey};
 		if (req.user) {
 			data.user = req.user.displayName;
@@ -45,8 +50,12 @@ router.get('/', function(req, res, next) {
 			  data.rooms = rooms;
 			  res.render('index', data);
 			})
-			.catch(() => {
-			  res.render('index', data);
+			.catch((e) => {
+				console.log("-----------------------------------")
+				console.log("Message.findAll エラーーー！！！")
+				console.log(e)
+				console.log("-----------------------------------------")
+			  	res.render('index', data);
 			})
 		 } else {
 			res.render('index', data);
@@ -82,9 +91,10 @@ router.post('/', (req, res) => {
 		.then(() =>{
 			res.redirect('/');
 		})
-		.catch(() => {
+		.catch((e) => {
 			console.log("-----------------------------------")
 			console.log("Room.create エラーーー！！！")
+			console.log(e)
 			console.log("-----------------------------------------")
 			res.redirect('/')
 		})
@@ -97,9 +107,9 @@ router.post('/', (req, res) => {
 		.then(room => {
 			if (room.capacity === room.peopleInside) {
 				//リダイレクトの際に入れなかったアラートを出す処理を入れる
-				console.log(room.capacity)
-				console.log(room.peopleInside)
+				console.log("-----------------------------------------------------------------------")
 				console.log("failed to enter the room, since it would exceed the room's capacity")
+				console.log("-----------------------------------------------------------------------")
 				res.redirect('/')
 			}else{
 				let peopleInside = room.peopleInside + 1
@@ -110,9 +120,10 @@ router.post('/', (req, res) => {
 				res.redirect(path);
 			}
 		})
-		.catch(() => {
+		.catch((e) => {
 			console.log("-----------------------------------")
 			console.log("Room.findOne エラーーー！！！！")
+			console.log(e)
 			console.log("-----------------------------------------")
 			res.redirect('/')
 		})
@@ -125,9 +136,10 @@ router.post('/', (req, res) => {
 		.then(() =>{
 			res.redirect('/');
 		})
-		.catch(() => {
+		.catch((e) => {
 			console.log("-----------------------------------")
 			console.log("SecretMessage.create エラーーー！！！！")
+			console.log(e)
 			console.log("-----------------------------------------")
 			res.redirect('/')
 		})
@@ -137,9 +149,10 @@ router.post('/', (req, res) => {
 			secret_message.update({show: true})
 			.then(() => res.redirect('/'))		
 		})
-		.catch(() => {
+		.catch((e) => {
 			console.log("-----------------------------------")
 			console.log("SecretMessage.findOne エラーーー！！！！")
+			console.log(e)
 			console.log("-----------------------------------------")
 			res.redirect('/')
 		})

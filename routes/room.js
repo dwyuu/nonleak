@@ -28,10 +28,6 @@ router.get('/:roomId', (req, res, next) => {
       }
     })
     .then((messages) =>{
-      console.log("-----------------------------")
-      console.log(messages.filter(m => m.sentBy === "true"))
-      console.log(messages.filter(m => m.sentBy !== "true"))
-      console.log("----------------------------------------")
       room = room.dataValues;
       //ログインしているならユーザID、それ以外ならnanoidを生成しhtmlに埋め込む
       room.self = req.user? req.user.id : nanoid.nanoid(7) ;
@@ -45,9 +41,10 @@ router.get('/:roomId', (req, res, next) => {
       res.redirect('/')
     })
   })
-  .catch(() => {
+  .catch((e) => {
     console.log("-----------------------------------")
     console.log("Room.findOne エラーーー！！！")
+    console.log(e)
     console.log("-----------------------------------------")
     res.redirect('/')
   })
@@ -62,9 +59,10 @@ router.post('/:roomId', (req, res) => {
       room.update({peopleInside: peopleInside})
       res.redirect('/')
     })
-    .catch(() => {
+    .catch((e) => {
       console.log("-----------------------------------")
       console.log("Room.findOne エラーーー！！！")
+      console.log(e)
       console.log("-----------------------------------------")
       res.redirect('/')
     })

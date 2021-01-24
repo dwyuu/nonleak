@@ -28,11 +28,12 @@ router.get('/', (req, res, next) => {
     .then((message) =>{
 			res.json(message.dataValues);
     })
-    .catch(() => {
+    .catch((e) => {
       console.log("-----------------------------------")
       console.log("Message.create エラーーー！！！")
+      console.log(e)
       console.log("-----------------------------------------")
-      res.redirect('/')
+      res.json({})
     })
 });
 

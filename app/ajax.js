@@ -16,16 +16,12 @@ const synchro = () => {
 
 const view_synchronization = (data) => {
     const m = data.Messages;
-    console.log(m);
     if(m === []) return;
     for (let i = 0; i < m.length; i++) {
         if(typeof(m[i]) == "string"){
-            console.log("old")
             $(`form[name=${m[i]}]`).remove();
         }else if(Object.prototype.toString.call( m[i] ) === "[object Object]"){
-            // check who has sent this message
             m[i].class = $(".descriptionBox").attr("self") === m[i].sentBy ? "myMessage":"otherMessage";
-            // add html 
             let $f = $(`<form method='post' name=${m[i].messageId}>`);
             $f.html(messageFormHtml(m[i]));
             $(`.${m[i].class}Box`).append($f);
@@ -59,10 +55,12 @@ $('#messageSubmissionForm').submit(function(e) {
     const $s = $('.styleInput');
     $s.attr('disabled', true);
     $.getJSON('/createMessage', {data: data}, (message) => {
-        let $f = $(`<form method='post' name=${message.messageId}>`);
-        message.class = "myMessage";
-        $f.html(messageFormHtml(message));
-        $(".myMessageBox").append($f);
+        if (message.messageId) {
+            let $f = $(`<form method='post' name=${message.messageId}>`);
+            message.class = "myMessage";
+            $f.html(messageFormHtml(message));
+            $(".myMessageBox").append($f);
+        }else console.log("message submission failed")
         $(this)[0].reset();
         $s.attr('disabled', false);
         $s.focus()
@@ -76,7 +74,10 @@ $(".chatBox").on("click", ".chatMessage", function(){
     clearInterval(synchroInterval);
     let id = $(this).attr("name");
     $(`form[name=${id}]`).remove();
-    $.getJSON('/deleteMessage', {data: id}, () => synchro());
+    $.getJSON('/deleteMessage', {data: id}, (d) => {
+        console.log(d.message)
+        synchro();
+    });
 })
 
 

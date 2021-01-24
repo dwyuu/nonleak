@@ -41,9 +41,10 @@ router.get('/', (req, res, next) => {
         res.json(checkArrayDiff(ids, databaseIds));
         
     })
-    .catch(() => {
+    .catch((e) => {
         console.log("-----------------------------------")
         console.log("Message.findAll エラーーー！！！")
+        console.log(e)
         console.log("-----------------------------------------")
         res.redirect('/')
     })
