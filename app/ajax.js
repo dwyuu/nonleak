@@ -13,7 +13,7 @@ const synchro = () => {
     synchroInterval = setInterval(() => {
         const data = $(".chatMessage").get().map(m => m.getAttribute("name"));
         $.getJSON('/synchronizeMessage', {data: data}, view_synchronization);
-    }, 5000);
+    }, 1000);
 }
 
 const view_synchronization = (data) => {
