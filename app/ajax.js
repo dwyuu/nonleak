@@ -1,3 +1,4 @@
+'use strict';
 import $ from 'jquery';
 
 // synchronization of messages
@@ -15,6 +16,9 @@ const synchro = () => {
 }
 
 const view_synchronization = (data) => {
+    
+    if (data.peopleInside) $(".peopleInside").html(`<span class="description">PEOPLE INSIDE </span> ${data.peopleInside}人`)   
+
     const m = data.Messages;
     if(m === []) return;
     for (let i = 0; i < m.length; i++) {

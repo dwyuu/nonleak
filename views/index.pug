@@ -7,7 +7,7 @@ block content
   //- create
   .create_modal.modal
     if user
-      form.flex_form(method="post")
+      form.flex_form.roomCreate(method="post")
         .styleInputBox
           label.ef
             input.styleInput.message(type="text" name="roomName" placeholder="NAME YOUR ROOM" autocomplete="off")   

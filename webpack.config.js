@@ -1,6 +1,6 @@
 module.exports = {
     context: __dirname + '/app',
-    entry: ['./alert.js', './modal.js', './ajax.js'],
+    entry: ['./alert.js', './modal.js', './ajax.js', './bubble.js'],
     target: 'node',
     output: {
       path: __dirname + '/public/js',

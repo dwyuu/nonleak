@@ -89,129 +89,36 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(1);
-__webpack_require__(2);
-module.exports = __webpack_require__(4);
+__webpack_require__(3);
+__webpack_require__(4);
+module.exports = __webpack_require__(5);
 
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 
-var $la = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".login_anchor"); //login modal-----------------------------------------------------
 
-var $um = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".user_modal");
-var display_user = false;
-jquery__WEBPACK_IMPORTED_MODULE_0___default()(".user").on("click", function () {
-  if (display_user) {
-    $ov.css("display", "none");
-    $um.css("display", "none");
-  } else {
-    $ov.css("display", "block");
-    $um.css("display", "block");
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(".roomCreate").submit(function () {
+  var v = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".styleInput[name='roomName']").val();
+  var roomNames = jquery__WEBPACK_IMPORTED_MODULE_0___default()("input[type='radio']").get().map(function (v) {
+    return v.value;
+  });
+
+  if (roomNames.indexOf(v) !== -1) {
+    alert("YOU ALREADY OWN THE SAME NAME ROOM");
+    return false;
   }
-
-  display_user = !display_user;
-}); // secret message modal-----------------------------------------------
-
-jquery__WEBPACK_IMPORTED_MODULE_0___default()(".secret_message_overlay").on("click", function () {
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()(".secret_message_overlay").css("display", "none");
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()(".secret_message_modal").css("display", "none");
-}); //create modal---------------------------------------------------------
-
-var $cm = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".create_modal");
-var display_create = false;
-jquery__WEBPACK_IMPORTED_MODULE_0___default()(".create").on("click", function () {
-  if (display_create) {
-    $la.css("z-index", "9999");
-    $ov.css("display", "none");
-    $cm.css("display", "none");
-  } else {
-    $la.css("z-index", "5000");
-    $ov.css("display", "block");
-    $cm.css("display", "block");
-  }
-
-  display_create = !display_create;
-}); // enter modal-------------------------------------------------------
-
-var $em = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".enter_modal");
-var display_enter = false;
-jquery__WEBPACK_IMPORTED_MODULE_0___default()(".enter").on("click", function () {
-  if (display_create) {
-    $la.css("z-index", "9999");
-    $ov.css("display", "none");
-    $em.css("display", "none");
-  } else {
-    $la.css("z-index", "5000");
-    $ov.css("display", "block");
-    $em.css("display", "block");
-  }
-
-  display_enter = !display_enter;
-}); // encode modal-------------------------------------------------------
-
-var $ecm = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".encode_modal");
-var display_encode = false;
-jquery__WEBPACK_IMPORTED_MODULE_0___default()(".encode").on("click", function () {
-  if (display_create) {
-    $la.css("z-index", "9999");
-    $ov.css("display", "none");
-    $ecm.css("display", "none");
-  } else {
-    $la.css("z-index", "5000");
-    $ov.css("display", "block");
-    $ecm.css("display", "block");
-  }
-
-  display_encode = !display_encode;
-}); // decode modal-------------------------------------------------------
-
-var $dcm = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".decode_modal");
-var display_decode = false;
-jquery__WEBPACK_IMPORTED_MODULE_0___default()(".decode").on("click", function () {
-  if (display_decode) {
-    $la.css("z-index", "9999");
-    $ov.css("display", "none");
-    $dcm.css("display", "none");
-  } else {
-    $la.css("z-index", "5000");
-    $ov.css("display", "block");
-    $dcm.css("display", "block");
-  }
-
-  display_decode = !display_decode;
-}); //overlay-------------------------------------------------------
-
-var $ov = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".overlay");
-$ov.on("click", function () {
-  $la.css("z-index", "9999");
-  $ov.css("display", "none");
-  $um.css("display", "none");
-  $cm.css("display", "none");
-  $em.css("display", "none");
-  $ecm.css("display", "none");
-  $dcm.css("display", "none");
-  display_user = false;
-  display_create = false;
-  display_enter = false;
-  display_encode = false;
-  display_decode = false;
-}); //-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
+});
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10816,13 +10723,128 @@ return jQuery;
 
 
 /***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+
+
+var $la = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".login_anchor"); //login modal-----------------------------------------------------
+
+var $um = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".user_modal");
+var display_user = false;
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(".user").on("click", function () {
+  if (display_user) {
+    $ov.css("display", "none");
+    $um.css("display", "none");
+  } else {
+    $ov.css("display", "block");
+    $um.css("display", "block");
+  }
+
+  display_user = !display_user;
+}); // secret message modal-----------------------------------------------
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(".secret_message_overlay").on("click", function () {
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(".secret_message_overlay").css("display", "none");
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(".secret_message_modal").css("display", "none");
+}); //create modal---------------------------------------------------------
+
+var $cm = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".create_modal");
+var display_create = false;
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(".create").on("click", function () {
+  if (display_create) {
+    $la.css("z-index", "9999");
+    $ov.css("display", "none");
+    $cm.css("display", "none");
+  } else {
+    $la.css("z-index", "5000");
+    $ov.css("display", "block");
+    $cm.css("display", "block");
+  }
+
+  display_create = !display_create;
+}); // enter modal-------------------------------------------------------
+
+var $em = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".enter_modal");
+var display_enter = false;
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(".enter").on("click", function () {
+  if (display_create) {
+    $la.css("z-index", "9999");
+    $ov.css("display", "none");
+    $em.css("display", "none");
+  } else {
+    $la.css("z-index", "5000");
+    $ov.css("display", "block");
+    $em.css("display", "block");
+  }
+
+  display_enter = !display_enter;
+}); // encode modal-------------------------------------------------------
+
+var $ecm = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".encode_modal");
+var display_encode = false;
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(".encode").on("click", function () {
+  if (display_create) {
+    $la.css("z-index", "9999");
+    $ov.css("display", "none");
+    $ecm.css("display", "none");
+  } else {
+    $la.css("z-index", "5000");
+    $ov.css("display", "block");
+    $ecm.css("display", "block");
+  }
+
+  display_encode = !display_encode;
+}); // decode modal-------------------------------------------------------
+
+var $dcm = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".decode_modal");
+var display_decode = false;
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(".decode").on("click", function () {
+  if (display_decode) {
+    $la.css("z-index", "9999");
+    $ov.css("display", "none");
+    $dcm.css("display", "none");
+  } else {
+    $la.css("z-index", "5000");
+    $ov.css("display", "block");
+    $dcm.css("display", "block");
+  }
+
+  display_decode = !display_decode;
+}); //overlay-------------------------------------------------------
+
+var $ov = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".overlay");
+$ov.on("click", function () {
+  $la.css("z-index", "9999");
+  $ov.css("display", "none");
+  $um.css("display", "none");
+  $cm.css("display", "none");
+  $em.css("display", "none");
+  $ecm.css("display", "none");
+  $dcm.css("display", "none");
+  display_user = false;
+  display_create = false;
+  display_enter = false;
+  display_encode = false;
+  display_decode = false;
+}); //-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+
+/***/ }),
 /* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+
  // synchronization of messages
 
 var synchroInterval;
@@ -10842,18 +10864,15 @@ var synchro = function synchro() {
 };
 
 var view_synchronization = function view_synchronization(data) {
+  if (data.peopleInside) jquery__WEBPACK_IMPORTED_MODULE_0___default()(".peopleInside").html("<span class=\"description\">PEOPLE INSIDE </span> ".concat(data.peopleInside, "\u4EBA"));
   var m = data.Messages;
-  console.log(m);
   if (m === []) return;
 
   for (var i = 0; i < m.length; i++) {
     if (typeof m[i] == "string") {
-      console.log("old");
       jquery__WEBPACK_IMPORTED_MODULE_0___default()("form[name=".concat(m[i], "]")).remove();
     } else if (Object.prototype.toString.call(m[i]) === "[object Object]") {
-      // check who has sent this message
-      m[i].class = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".descriptionBox").attr("self") === m[i].sentBy ? "myMessage" : "otherMessage"; // add html 
-
+      m[i].class = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".descriptionBox").attr("self") === m[i].sentBy ? "myMessage" : "otherMessage";
       var $f = jquery__WEBPACK_IMPORTED_MODULE_0___default()("<form method='post' name=".concat(m[i].messageId, ">"));
       $f.html(messageFormHtml(m[i]));
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(".".concat(m[i].class, "Box")).append($f);
@@ -10883,10 +10902,13 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('#messageSubmissionForm').submit(f
   jquery__WEBPACK_IMPORTED_MODULE_0___default.a.getJSON('/createMessage', {
     data: data
   }, function (message) {
-    var $f = jquery__WEBPACK_IMPORTED_MODULE_0___default()("<form method='post' name=".concat(message.messageId, ">"));
-    message.class = "myMessage";
-    $f.html(messageFormHtml(message));
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()(".myMessageBox").append($f);
+    if (message.messageId) {
+      var $f = jquery__WEBPACK_IMPORTED_MODULE_0___default()("<form method='post' name=".concat(message.messageId, ">"));
+      message.class = "myMessage";
+      $f.html(messageFormHtml(message));
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(".myMessageBox").append($f);
+    } else console.log("message submission failed");
+
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(_this)[0].reset();
     $s.attr('disabled', false);
     $s.focus();
@@ -10900,8 +10922,140 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(".chatBox").on("click", ".chatMess
   jquery__WEBPACK_IMPORTED_MODULE_0___default()("form[name=".concat(id, "]")).remove();
   jquery__WEBPACK_IMPORTED_MODULE_0___default.a.getJSON('/deleteMessage', {
     data: id
-  }, function () {
-    return synchro();
+  }, function (d) {
+    console.log(d.message);
+    synchro();
+  });
+});
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()('.button--bubble').each(function () {
+  var $circlesTopLeft = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).parent().find('.circle.top-left');
+  var $circlesBottomRight = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).parent().find('.circle.bottom-right');
+  var tl = new TimelineLite();
+  var tl2 = new TimelineLite();
+  var btTl = new TimelineLite({
+    paused: true
+  });
+  tl.to($circlesTopLeft, 1.2, {
+    x: -25,
+    y: -25,
+    scaleY: 2,
+    ease: SlowMo.ease.config(0.1, 0.7, false)
+  });
+  tl.to($circlesTopLeft.eq(0), 0.1, {
+    scale: 0.2,
+    x: '+=6',
+    y: '-=2'
+  });
+  tl.to($circlesTopLeft.eq(1), 0.1, {
+    scaleX: 1,
+    scaleY: 0.8,
+    x: '-=10',
+    y: '-=7'
+  }, '-=0.1');
+  tl.to($circlesTopLeft.eq(2), 0.1, {
+    scale: 0.2,
+    x: '-=15',
+    y: '+=6'
+  }, '-=0.1');
+  tl.to($circlesTopLeft.eq(0), 1, {
+    scale: 0,
+    x: '-=5',
+    y: '-=15',
+    opacity: 0
+  });
+  tl.to($circlesTopLeft.eq(1), 1, {
+    scaleX: 0.4,
+    scaleY: 0.4,
+    x: '-=10',
+    y: '-=10',
+    opacity: 0
+  }, '-=1');
+  tl.to($circlesTopLeft.eq(2), 1, {
+    scale: 0,
+    x: '-=15',
+    y: '+=5',
+    opacity: 0
+  }, '-=1');
+  var tlBt1 = new TimelineLite();
+  var tlBt2 = new TimelineLite();
+  tlBt1.set($circlesTopLeft, {
+    x: 0,
+    y: 0,
+    rotation: -45
+  });
+  tlBt1.add(tl);
+  tl2.set($circlesBottomRight, {
+    x: 0,
+    y: 0
+  });
+  tl2.to($circlesBottomRight, 1.1, {
+    x: 30,
+    y: 30,
+    ease: SlowMo.ease.config(0.1, 0.7, false)
+  });
+  tl2.to($circlesBottomRight.eq(0), 0.1, {
+    scale: 0.2,
+    x: '-=6',
+    y: '+=3'
+  });
+  tl2.to($circlesBottomRight.eq(1), 0.1, {
+    scale: 0.8,
+    x: '+=7',
+    y: '+=3'
+  }, '-=0.1');
+  tl2.to($circlesBottomRight.eq(2), 0.1, {
+    scale: 0.2,
+    x: '+=15',
+    y: '-=6'
+  }, '-=0.2');
+  tl2.to($circlesBottomRight.eq(0), 1, {
+    scale: 0,
+    x: '+=5',
+    y: '+=15',
+    opacity: 0
+  });
+  tl2.to($circlesBottomRight.eq(1), 1, {
+    scale: 0.4,
+    x: '+=7',
+    y: '+=7',
+    opacity: 0
+  }, '-=1');
+  tl2.to($circlesBottomRight.eq(2), 1, {
+    scale: 0,
+    x: '+=15',
+    y: '-=5',
+    opacity: 0
+  }, '-=1');
+  tlBt2.set($circlesBottomRight, {
+    x: 0,
+    y: 0,
+    rotation: 45
+  });
+  tlBt2.add(tl2);
+  btTl.add(tlBt1);
+  btTl.to(jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).parent().find('.button.effect-button'), 0.8, {
+    scaleY: 1.1
+  }, 0.1);
+  btTl.add(tlBt2, 0.2);
+  btTl.to(jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).parent().find('.button.effect-button'), 1.8, {
+    scale: 1,
+    ease: Elastic.easeOut.config(1.2, 0.4)
+  }, 1.2);
+  btTl.timeScale(2.6);
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).on('mouseover', function () {
+    btTl.restart();
   });
 });
 

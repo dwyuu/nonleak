@@ -8,8 +8,6 @@ router.get('/', (req, res, next) => {
     let id = decodeURI(req.url).slice(2).split("=")[1];
     Message.findOne({where:{messageId: id}})
     .then((message) =>{
-        console.log("this message is about to delete")
-        console.log(message)
         message.destroy();
         res.json({message: "deletion success"})
     })

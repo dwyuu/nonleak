@@ -102,11 +102,9 @@ router.post('/', (req, res) => {
 		let where;
 		if (req.body.roomName) where = {roomName: req.body.roomName}
 		else where = {roomKey: req.body.roomKey}
-		Room.findOne({where: where
-		})
+		Room.findOne({where: where})
 		.then(room => {
 			if (room.capacity === room.peopleInside) {
-				//リダイレクトの際に入れなかったアラートを出す処理を入れる
 				console.log("-----------------------------------------------------------------------")
 				console.log("failed to enter the room, since it would exceed the room's capacity")
 				console.log("-----------------------------------------------------------------------")

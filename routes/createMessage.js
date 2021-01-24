@@ -13,8 +13,6 @@ router.get('/', (req, res, next) => {
         d = d.slice(1, d.length-1);
         data[d] = url_datas[i].split("=")[1];
     }
-    console.log(url_datas)
-    console.log(data)
     // create message
     let messageId = nanoid.nanoid(7);
     Message.create({
