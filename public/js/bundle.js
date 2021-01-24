@@ -10926,6 +10926,21 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(".chatBox").on("click", ".chatMess
     console.log(d.message);
     synchro();
   });
+}); // --------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------
+// ROOM DELETE
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(".deleteRoomButton").on("click", function () {
+  var $this = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this);
+  var name = $this.attr("roomName");
+  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.getJSON('/deleteRoom', {
+    data: name
+  }, function (d) {
+    console.log(d.message);
+    $this.parent().remove();
+  });
 });
 
 /***/ }),

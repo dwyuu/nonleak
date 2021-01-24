@@ -8,10 +8,6 @@ const Message = require('../models/message');
 // const uuid = require('uuid');
 const nanoid = require("nanoid");
 
-router.get('/', (req, res, next) => {
-  res.render('room');
-});
-
 
 //---------------
 
@@ -22,11 +18,7 @@ router.get('/:roomId', (req, res, next) => {
     }
   })
   .then((room) => {
-    Message.findAll({
-      where: {
-        roomId: req.url.split("/")[1]
-      }
-    })
+    Message.findAll({where: { roomId: req.url.split("/")[1]} })
     .then((messages) =>{
       room = room.dataValues;
       //ログインしているならユーザID、それ以外ならnanoidを生成しhtmlに埋め込む

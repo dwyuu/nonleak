@@ -39,12 +39,14 @@ block content
   .enter_modal.modal
     form.flex_form(method="post")
       if user&&rooms.length
-        p CHOOSE ONE OF YOUR ROOMS BELOW or ENTER A ISSUED ROOM KEY
+        p CHOOSE ONE OF YOUR ROOMS BELOW or ENTER A ISSUED ROOM KEY  
+        p **PRIORITY** RADIO BUTTON > ROOM KEY
         .room_choice
           each room in rooms
             .room_radio
               input(type="radio", name="roomName" value=room.roomName)
               label(for=room.roomId) #{room.roomName}
+              input.deleteRoomButton(type="button" name="deleteRoomButton" value="x" roomName=room.roomName)
         .styleInputBox
           label.ef
             input.styleInput.token(type="text" name="roomKey" placeholder="ISSUED ROOM KEY" autocomplete="off") 

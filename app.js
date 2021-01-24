@@ -47,9 +47,10 @@ let indexRouter = require('./routes/index');
 let logoutRouter = require('./routes/logout')
 let roomRouter = require('./routes/room');
 let authRouter = require('./routes/auth');
-let createMessageRouter = require('./routes/createMessage')
-let deleteMessageRouter = require('./routes/deleteMessage')
-let synchronizeMessageRouter = require('./routes/synchronizeMessage')
+let deleteRoomRouter = require('./routes/deleteRoom');
+let createMessageRouter = require('./routes/createMessage');
+let deleteMessageRouter = require('./routes/deleteMessage');
+let synchronizeMessageRouter = require('./routes/synchronizeMessage');
 
 let app = express();
 app.use(helmet());
@@ -73,6 +74,7 @@ app.use('/', indexRouter);
 app.use('/logout', logoutRouter);
 app.use('/room', roomRouter);
 app.use('/auth', authRouter);
+app.use('/deleteRoom', deleteRoomRouter);
 app.use('/createMessage', createMessageRouter)
 app.use('/deleteMessage', deleteMessageRouter)
 app.use('/synchronizeMessage', synchronizeMessageRouter)

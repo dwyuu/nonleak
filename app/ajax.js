@@ -1,6 +1,7 @@
 'use strict';
 import $ from 'jquery';
 
+
 // synchronization of messages
 let synchroInterval;
 $(window).on("load", ()=> {
@@ -16,7 +17,7 @@ const synchro = () => {
 }
 
 const view_synchronization = (data) => {
-    
+
     if (data.peopleInside) $(".peopleInside").html(`<span class="description">PEOPLE INSIDE </span> ${data.peopleInside}人`)   
 
     const m = data.Messages;
@@ -76,11 +77,28 @@ $('#messageSubmissionForm').submit(function(e) {
 
 $(".chatBox").on("click", ".chatMessage", function(){
     clearInterval(synchroInterval);
-    let id = $(this).attr("name");
+    const id = $(this).attr("name");
     $(`form[name=${id}]`).remove();
     $.getJSON('/deleteMessage', {data: id}, (d) => {
         console.log(d.message)
         synchro();
+    });
+})
+
+
+// --------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------
+
+// ROOM DELETE
+
+$(".deleteRoomButton").on("click", function(){
+    let $this = $(this);
+    const name = $this.attr("roomName");
+    $.getJSON('/deleteRoom', {data: name}, (d) => {
+        console.log(d.message);
+        $this.parent().remove();
     });
 })
 
